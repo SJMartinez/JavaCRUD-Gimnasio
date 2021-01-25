@@ -9,6 +9,8 @@ Los miembros resaltados en rojo poseen una cuota vencida (la cuota vence a parti
 Se puede agregar, modificar y borrar miembros, todo en el contexto de una sola página HTML
 
 ![Front](https://github.com/SJMartinez/JavaCRUD-Gimnasio/blob/main/Gym/front2.png)
+
+
 ![Front](https://github.com/SJMartinez/JavaCRUD-Gimnasio/blob/main/Gym/front3.png)
 
 Las cuotas se manejan en otra página
