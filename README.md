@@ -21,10 +21,11 @@ Bases de datos con MySQL.
 El proyecto está abierto a extensión, que iré subiendo a medida de completadas.
 
 TODO:
--Lograr configurar correctamente los popovers del Bootstrap para un mejor dinamismo del Front
--Limar algunas cosas del front que siento toscas
--IMPORTANTE: Tilde en "membresías"
--Extender el proyecto en:
-  -capacidad de administrar empleados
-  -valores de cuotas y sueldos de empleados, y algoritmos que realizen balances en base a ingresos y egresos de caja
-  -Probar implementando Spring Security
+
+<li>Lograr configurar correctamente los popovers del Bootstrap para un mejor dinamismo del Front</li>
+<li>Limar algunas cosas del front que siento toscas</li>
+<li>IMPORTANTE: Tilde en "membresías"</li>
+<li>Extender el proyecto en:</li>
+<li>capacidad de administrar empleados</li>
+<li>valores de cuotas y sueldos de empleados, y algoritmos que realizen balances en base a ingresos y egresos de caja</li>
+<li>Probar implementando Spring Security</li>
