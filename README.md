@@ -10,7 +10,7 @@ Se puede agregar, modificar y borrar miembros, todo en el contexto de una sola p
 
 ![Front](https://github.com/SJMartinez/JavaCRUD-Gimnasio/blob/main/Gym/front2.png)
 
-
+=======================
 ![Front](https://github.com/SJMartinez/JavaCRUD-Gimnasio/blob/main/Gym/front3.png)
 
 Las cuotas se manejan en otra página
