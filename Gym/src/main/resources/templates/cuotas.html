@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/javascript.util/0.12.12/javascript.util.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css"></script>
+<style>
+    .center {
+        margin: auto;
+        width: 60%;
+        background-color: rgba(118, 158, 177, 0.205);
+        padding: 10px;
+    }
+</style>
+<html>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+        aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+
+                <a class="nav-link" th:href="@{/principal(habilitarIngreso=${verdadero})}">Ingresar miembro</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/principal}" method="get">Home</a>
+            </li>
+
+        </ul>
+
+    </div>
+</nav>
+<p></p>
+<h1 style="text-align:center">Control de cuotas</h1>
+<p></p>
+
+<div class="center" th:object=${miembro}>
+    <h2 style="text-align:center">
+        <table>
+            <tr class="center">
+                <th></th>
+                <th></th>
+                <th th:text="*{nombre} + ' ' + *{apellido}"></th>
+
+
+
+                <form action="#" th:action="@{/cuotas/{id}(id=${miembro.getIdMiembro()})}" method="post">
+                    <div th:object="${cuotaV}">
+                        <td>
+                            <input type="date" th:field="*{fechaPago}" />
+                        </td>
+                    </div>
+
+
+                    <td> <button type="submit" class="btn btn-primary">Ingresar</button></td>
+                </form>
+                </td>
+            </tr>
+        </table>
+    </h2>
+</div>
+
+<div class="center">
+    <table>
+        <tr class="center">
+            <th>Fecha abonada</th>
+            <th></th>
+        </tr>
+        <div th:each="cuota:${cuotas}">
+            <tr>
+                <td th:text="${cuota.getFechaPago()}">Fecha pago</td>
+                <td>
+                    <form action="#" th:action="@{/borrarCuota/{id}(id=${cuota.getIdCuota()})}" method="post">
+                        <button type="submit" class="btn btn-primary">Borrar</button>
+                    </form>
+                </td>
+            </tr>
+        </div>
+    </table>
+</div>
+
+
+
+
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/javascript.util/0.12.12/javascript.util.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css"></script>
+
+
+
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+
+                    <a class="nav-link" th:href="@{/principal(habilitarIngreso=${verdadero})}">Ingresar miembro</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/principal}" method="get">Home</a>
+                </li>
+
+            </ul>
+
+        </div>
+    </nav>
+
+    <div class="jumbotron" th:if="${habilitarIngreso}">
+        <form th:action="principal" th:object="${miembroP}" method="post">
+            <label>Nombre</label>
+            <input type="text" th:field="*{nombre}" placeholder="Ingrese nombre" />
+            <label>Apellido</label>
+            <input type="text" th:field="*{apellido}" placeholder="Ingrese apellido" />
+            <label>D.N.I</label>
+            <input type="number" th:field="*{dni}" placeholder="Ingrese dni" />
+            <label>Teléfono</label>
+            <input type="number" th:field="*{telefono}" placeholder="Ingrese teléfono" />
+            <label>Dirección</label>
+            <input type="text" th:field="*{direccion}" placeholder="Ingrese dirección" />
+            <label>Fecha Nacimiento</label>
+            <input type="date" th:field="*{fechaNacimiento}" placeholder="Ingrese fecha de nacimiento" />
+            <label>Fecha de ingreso</label>
+            <input type="date" th:field="*{fechaIngreso}" placeholder="Ingrese fecha de ingreso" />
+            <input type="submit" value="Enviar" />
+        </form>
+    </div>
+    <p></p>
+    <h1 style="text-align:center">Control de membresias</h1>
+    <p></p>
+    <div class="container">
+        <table class="table table-hover">
+            <tr class="table-primary">
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Última cuota</th>
+            </tr>
+            <div th:each="miembro:${miembros}">
+
+                <div th:if="${miembro.getMoroso()}">
+                    <tr class="table-danger">
+                        <td th:text="${miembro.getNombre()}">Nombre</td>
+                        <td th:text="${miembro.getApellido()}">Apellido</td>
+                        <td th:text="${miembro.getDni()}">DNI</td>
+                        <td th:text="${miembro.getUltimaCuotaS()}">Última cuota</td>
+                        <td>
+                            <form action="#" th:action="@{/borrar/{id}(id=${miembro.getIdMiembro()})}" method="get">
+                                <button type="submit" class="btn btn-primary">Borrar</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="#" th:action="@{/modificar/{id}(id=${miembro.getIdMiembro()})}" method="get">
+                                <button type="submit" class="btn btn-primary">Modificar</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="#" th:action="@{/cuotas/{id}(id=${miembro.getIdMiembro()})}" method="get">
+                                <button type="submit" class="btn btn-primary">Cuotas</button>
+                            </form>
+                        </td>
+                    <tr class="table-info" th:if="${idModificacion}==${miembro.getIdMiembro()}">
+                        <form th:action="@{/modificar/{id}(id=${miembro.getIdMiembro()})}" th:object="${miembroM}"
+                            method="post">
+
+                            <td> <label>Nombre</label>
+                                <input type="text" th:field="*{nombre}" placeholder="*{nombre}" />
+                            </td>
+                            <td> <label>Apellido</label>
+                                <input type="text" th:field="*{apellido}" placeholder="*{apellido}" />
+                            </td>
+                            <td> <label>D.N.I</label>
+                                <input type="number" th:field="*{dni}" placeholder="*{dni}" />
+                            </td>
+                            <td> <label>Teléfono</label>
+                                <input type="number" th:field="*{telefono}" placeholder="*{telefono}" />
+                                <label>Dirección</label>
+                                <input type="text" th:field="*{direccion}" placeholder="*{direccion}" />
+                            </td>
+                            <td><label>Fecha Nacimiento</label>
+                                <input type="date" th:field="*{fechaNacimiento}"
+                                    placeholder="${miembroM.getFechaNacimiento()}" />
+                            </td>
+                            <td> <label>Fecha de ingreso</label>
+                                <input type="date" th:field="*{fechaIngreso}" placeholder="*{fechaIngreso}" />
+                                <input type="submit" value="Enviar" />
+                            </td>
+                        </form>
+                    </tr>
+                    </tr>
+                </div>
+                <div th:unless="${miembro.getMoroso()}">
+                    <tr>
+                        <td th:text="${miembro.getNombre()}">Nombre</td>
+                        <td th:text="${miembro.getApellido()}">Apellido</td>
+                        <td th:text="${miembro.getDni()}">DNI</td>
+                        <td th:text="${miembro.getUltimaCuotaS()}">Última cuota</td>
+                        <td>
+                            <form action="#" th:action="@{/borrar/{id}(id=${miembro.getIdMiembro()})}" method="get">
+                                <button type="submit" class="btn btn-primary">Borrar</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="#" th:action="@{/modificar/{id}(id=${miembro.getIdMiembro()})}" method="get">
+                                <button type="submit" class="btn btn-primary">Modificar</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="#" th:action="@{/cuotas/{id}(id=${miembro.getIdMiembro()})}" method="get">
+                                <button type="submit" class="btn btn-primary">Cuotas</button>
+                            </form>
+                        </td>
+                    <tr class="table-info" th:if="${idModificacion}==${miembro.getIdMiembro()}">
+                        <form th:action="@{/modificar/{id}(id=${miembro.getIdMiembro()})}" th:object="${miembroM}"
+                            method="post">
+
+                            <td> <label>Nombre</label>
+                                <input type="text" th:field="*{nombre}" placeholder="*{nombre}" />
+                            </td>
+                            <td> <label>Apellido</label>
+                                <input type="text" th:field="*{apellido}" placeholder="*{apellido}" />
+                            </td>
+                            <td> <label>D.N.I</label>
+                                <input type="number" th:field="*{dni}" placeholder="*{dni}" />
+                            </td>
+                            <td> <label>Teléfono</label>
+                                <input type="number" th:field="*{telefono}" placeholder="*{telefono}" />
+                                <label>Dirección</label>
+                                <input type="text" th:field="*{direccion}" placeholder="*{direccion}" />
+                            </td>
+                            <td><label>Fecha Nacimiento</label>
+                                <input type="date" th:field="*{fechaNacimiento}"
+                                    placeholder="${miembroM.getFechaNacimiento()}" />
+                            </td>
+                            <td> <label>Fecha de ingreso</label>
+                                <input type="date" th:field="*{fechaIngreso}" placeholder="*{fechaIngreso}" />
+                                <input type="submit" value="Enviar" />
+                            </td>
+                        </form>
+                    </tr>
+                    </tr>
+                </div>
+
+            </div>
+        </table>
+    </div>
+
+</body>
+
+</html>
